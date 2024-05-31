@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Sketch2 extends PApplet {
 	
+  ArrayList<PVector> trail = new ArrayList<PVector>();
   float[] circleY = new float[20];
   float[] circleX = new float[20];
 
@@ -20,6 +23,7 @@ public class Sketch2 extends PApplet {
    */
   public void setup() {
     background(210, 255, 173);
+    noStroke();
     
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++){
@@ -38,6 +42,7 @@ public class Sketch2 extends PApplet {
 	  
     background(50);
     snow();
+    mouseTrail();
     
   }
 
@@ -67,4 +72,21 @@ public class Sketch2 extends PApplet {
   }
 
   }
+
+  public void mouseTrail(){
+    trail.add(new PVector(mouseX,mouseY));
+    if(trail.size() > 10){
+      trail.remove(0);
+    }
+
+    for (int i = 0; i < trail.size(); i++){
+      PVector p = trail.get(i); 
+
+      float size = 10 * i / trail.size();
+      ellipse (p.x, p.y, size,size);
+    }
+
+  }
 }
+
+
