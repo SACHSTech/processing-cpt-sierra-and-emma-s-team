@@ -2,7 +2,9 @@ import processing.core.PApplet;
 
 public class Sketch1 extends PApplet {
 	
-	
+  float[] circleY = new float[15];
+  float[] circleX = new float[15];
+
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
@@ -17,6 +19,15 @@ public class Sketch1 extends PApplet {
    */
   public void setup() {
     background(210, 255, 173);
+    
+    // determine Y value for circles 
+    for (int i = 0; i < circleY.length; i++){
+      circleY[i] = random(height);
+    }
+    // Dertermine the X for the circles 
+    for (int i = 0; i < circleX.length; i++){
+      circleX[i] = random(width);
+    }
   }
 
   /**
@@ -24,13 +35,35 @@ public class Sketch1 extends PApplet {
    */
   public void draw() {
 	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+    background(50);
+    snow();
 
-    stroke(255);
-    line(50, 125, 70, 50);  
   }
-  
-  // define other methods down here.
+
+  public void snow(){
+    for (int i = 0; i < circleY.length; i++){
+      fill(255, 255, 255);
+      ellipse(circleX[i], circleY[i], 25, 25);
+      circleY[i]++;
+      if (keyCode == DOWN){
+        circleY[i] += 3;
+      }
+      else if (keyCode == UP){
+        circleY[i] -= 0.5;
+      }
+      if (circleY[i] > height){
+        circleY[i] = 0;
+      }
+    }
+  }
+
+  public void mouseDragged(){
+    for (int i = 0; i < circleX.length; i++){
+      if (dist(mouseX, mouseY, circleX[i], circleY[i]) < 25){
+        ellipse(circleX[i], circleY[i], 25, 25);
+        fill (252, 126, 191);
+      }
+    }
+  }
+
 }
