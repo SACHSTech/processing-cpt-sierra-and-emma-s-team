@@ -2,8 +2,8 @@ import processing.core.PApplet;
 
 public class Sketch1 extends PApplet {
 	
-  float[] circleY = new float[15];
-  float[] circleX = new float[15];
+  float[] circleY = new float[20];
+  float[] circleX = new float[20];
 
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -11,6 +11,7 @@ public class Sketch1 extends PApplet {
   public void settings() {
 	// put your size call here
     size(400, 400);
+
   }
 
   /** 
@@ -37,7 +38,7 @@ public class Sketch1 extends PApplet {
 	  
     background(50);
     snow();
-
+    
   }
 
   public void snow(){
@@ -58,12 +59,11 @@ public class Sketch1 extends PApplet {
   }
 
   public void mouseDragged(){
-    for (int i = 0; i < circleX.length; i++){
-      if (dist(mouseX, mouseY, circleX[i], circleY[i]) < 25){
-        ellipse(circleX[i], circleY[i], 25, 25);
-        fill (252, 126, 191);
-      }
+  for (int i = 0; i < circleX.length; i++){
+    if (dist(mouseX, mouseY, circleX[i], circleY[i]) < 25){
+      ellipse(circleX[i], circleY[i], 25, 25);
+      fill (252, 126, 191);
     }
   }
-
+}
 }
