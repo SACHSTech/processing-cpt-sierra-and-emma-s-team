@@ -1,9 +1,23 @@
 import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PVector;
+import processing.core.PImage;
 
 public class Sketch1 extends PApplet {
 	
+  PImage imgBanana;
+  PImage imgBlueberry;
+  PImage imgCherry;
+  PImage imgCoconut;
+  PImage imgDragonfruit;
+  PImage imgKiwi;
+  PImage imgLime;
+  PImage imgMango;
+  PImage imgOrange;
+  PImage imgPear;
+  PImage imgStrawberry;
+  PImage imgWatermelon;
+  
   ArrayList<PVector> trail = new ArrayList<PVector>();
   float[] circleY = new float[20];
   float[] circleX = new float[20];
@@ -24,7 +38,10 @@ public class Sketch1 extends PApplet {
   public void setup() {
     background(210, 255, 173);
     noStroke();
-    
+
+    imgBanana = loadImage("banana.png");
+    imgBlueberry = loadImage("blueberry.png");
+
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++){
       circleY[i] = random(height);
@@ -39,11 +56,15 @@ public class Sketch1 extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-	  
     background(50);
+    image(imgBanana, 0, 0);
     snow();
     mouseTrail();
-    
+  }
+
+  public void scaleImages(double dblSize){
+    imgBanana.resize((int)(Double.valueOf(imgBanana.width)*dblSize), (int)(Double.valueOf(imgBanana.height)*dblSize));
+
   }
 
   public void snow(){
@@ -88,3 +109,5 @@ public class Sketch1 extends PApplet {
 
   }
 }
+
+

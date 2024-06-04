@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PVector;
+import processing.core.PImage;
 
 public class Sketch2 extends PApplet {
 	
+  
   ArrayList<PVector> trail = new ArrayList<PVector>();
   float[] circleY = new float[20];
   float[] circleX = new float[20];
@@ -25,6 +27,7 @@ public class Sketch2 extends PApplet {
     background(210, 255, 173);
     noStroke();
     
+
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++){
       circleY[i] = random(height);
