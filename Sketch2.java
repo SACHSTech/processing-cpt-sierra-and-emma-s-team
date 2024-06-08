@@ -5,6 +5,7 @@ import processing.core.PImage;
 
 public class Sketch2 extends PApplet {
 	
+  
   ArrayList<PVector> trail = new ArrayList<PVector>();
   float[] circleY = new float[20];
   float[] circleX = new float[20];
@@ -41,15 +42,7 @@ public class Sketch2 extends PApplet {
   public void setup() {
     background(210, 255, 173);
     noStroke();
-    imgbg1 = loadImage("/Images/bg1.png");
-    imgbg1.resize(width, height);
-
-    imgStart = loadImage("/Images/start.png"); 
-    imgStart.resize(startWidth, startHeight);
- 
-
-
-
+    
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++){
       circleY[i] = random(height);
