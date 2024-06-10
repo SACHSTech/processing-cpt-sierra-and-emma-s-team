@@ -42,6 +42,14 @@ public class Sketch2 extends PApplet {
   public void setup() {
     background(210, 255, 173);
     noStroke();
+
+    imgbg1 = loadImage("/Images/bg1.png");
+    imgbg1.resize(width, height);
+
+    imgStart = loadImage("/Images/start.png"); 
+    imgStart.resize(startWidth, startHeight);
+
+
     
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++){
