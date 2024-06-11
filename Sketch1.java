@@ -2,147 +2,154 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.core.PImage;
-import java.util.concurrent.TimeUnit;
 
 public class Sketch1 extends PApplet {
-  int intImageX = 0;
-  int intImageY = 0;
-  int randomFruit = (int)random(12);
-	
-  PImage imgBanana;
-  PImage imgBlueberry;
-  PImage imgCherry;
-  PImage imgCoconut;
-  PImage imgDragonfruit;
-  PImage imgKiwi;
-  PImage imgLime;
-  PImage imgMango;
-  PImage imgOrange;
-  PImage imgPear;
-  PImage imgStrawberry;
-  PImage imgWatermelon;
 
-  PImage fallingImage;
-  
-  ArrayList<PVector> trail = new ArrayList<PVector>();
+    ArrayList<PVector> trail = new ArrayList<PVector>();
+    float[] circleY = new float[12];
+    float[] circleX = new float[12];
+    PImage[] fruits = new PImage[12];
+    PImage[] fruitsCut = new PImage[12];
+    PImage[] fruitsStatic = new PImage[12];
+    double dblSize = 0.1;
+    int lives = 3;
 
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
-  public void settings() {
-	// put your size call here
-    size(400, 400);
+    /**
+     * Called once at the beginning of execution, put your size all in this
+     * method
+     */
+    public void settings() {
+        // put your size call here
+        size(400, 400);
 
-  }
-
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
-  public void setup() {
-    background(210, 255, 173);
-    noStroke();
-
-    // load images
-    imgBanana = loadImage("banana.png");
-    imgBlueberry = loadImage("blueberry.png");
-    imgCherry = loadImage("cherry.png");
-    imgCoconut = loadImage("coconut.png");
-    imgDragonfruit = loadImage("dragonfruit.png");
-    imgKiwi = loadImage("kiwi.png");
-    imgLime = loadImage("lime.png");
-    imgMango = loadImage("mango.png");
-    imgOrange = loadImage("orange.png");
-    imgPear = loadImage("pear.png");
-    imgStrawberry = loadImage("strawberry.png");
-    imgWatermelon = loadImage("watermelon.png");
-  }
-
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
-  public void draw() {
-    background(50);
-    scaleImages(50, 50);
-    snow();
-    mouseTrail();
-  }
-
-  public void scaleImages(int intX, int intY){
-    imgBanana.resize(intX, intY);
-    imgBlueberry.resize(intX, intY);
-    imgCherry.resize(intX, intY);
-    imgCoconut.resize(intX, intY);
-    imgDragonfruit.resize(intX, intY);
-    imgKiwi.resize(intX, intY);
-    imgLime.resize(intX, intY);
-    imgMango.resize(intX, intY);
-    imgOrange.resize(intX, intY);
-    imgPear.resize(intX, intY);
-    imgStrawberry.resize(intX, intY);
-    imgWatermelon.resize(intX, intY);
-  }
-
-  public void snow(){
-    System.out.println(randomFruit);
-    if(randomFruit == 0){
-      fallingImage = imgBanana;
-    }else if(randomFruit == 1){
-      fallingImage = imgBlueberry;
-    }else if(randomFruit == 2){
-      fallingImage = imgCherry;
-    }else if(randomFruit == 3){
-      fallingImage = imgCoconut;
-    }else if(randomFruit == 4){
-      fallingImage = imgDragonfruit;
-    }else if(randomFruit == 5){
-      fallingImage = imgKiwi;
-    }else if(randomFruit == 6){
-      fallingImage = imgLime;
-    }else if(randomFruit == 7){
-      fallingImage = imgMango;
-    }else if(randomFruit == 8){
-      fallingImage = imgOrange;
-    }else if(randomFruit == 9){
-      fallingImage = imgPear;
-    }else if(randomFruit == 10){
-      fallingImage = imgStrawberry;
-    }else if(randomFruit == 11){
-      fallingImage = imgWatermelon;
     }
 
-    image(fallingImage, intImageX, intImageY);
-    if(intImageY > height){
-      intImageY = 0;
-      randomFruit = (int)random(12);
-    }else{
-      intImageY += 10;
+    /**
+     * Called once at the beginning of execution. Add initial set up values here
+     * i.e background, stroke, fill etc.
+     */
+    public void setup() {
+        background(210, 255, 173);
+        noStroke();
+
+        // determine Y value for circles 
+        for (int i = 0; i < circleY.length; i++) {
+            circleY[i] = random(200);
+        }
+        // Dertermine the X for the circles 
+        for (int i = 0; i < circleX.length; i++) {
+            circleX[i] = random(width);
+        }
+
+        fruitsCut[0] = loadImage("bananacut.png");
+        fruitsCut[1] = loadImage("blueberrycut.png");
+        fruitsCut[2] = loadImage("cherrycut.png");
+        fruitsCut[3] = loadImage("coconutcut.png");
+        fruitsCut[4] = loadImage("dragonfruitcut.png");
+        fruitsCut[5] = loadImage("kiwicut.png");
+        fruitsCut[6] = loadImage("limecut.png");
+        fruitsCut[7] = loadImage("mangocut.png");
+        fruitsCut[8] = loadImage("orangecut.png");
+        fruitsCut[9] = loadImage("pearcut.png");
+        fruitsCut[10] = loadImage("watermeloncut.png");
+        fruitsCut[11] = loadImage("strawberrycut.png");
+
+        fruitsStatic[0] = loadImage("banana.png");
+        fruitsStatic[1] = loadImage("blueberry.png");
+        fruitsStatic[2] = loadImage("cherry.png");
+        fruitsStatic[3] = loadImage("coconut.png");
+        fruitsStatic[4] = loadImage("dragonfruit.png");
+        fruitsStatic[5] = loadImage("kiwi.png");
+        fruitsStatic[6] = loadImage("lime.png");
+        fruitsStatic[7] = loadImage("mango.png");
+        fruitsStatic[8] = loadImage("orange.png");
+        fruitsStatic[9] = loadImage("pear.png");
+        fruitsStatic[10] = loadImage("watermelon.png");
+        fruitsStatic[11] = loadImage("strawberry.png");
+
+        //Load array with images
+        fruits[0] = loadImage("banana.png");
+        fruits[1] = loadImage("blueberry.png");
+        fruits[2] = loadImage("cherry.png");
+        fruits[3] = loadImage("coconut.png");
+        fruits[4] = loadImage("dragonfruit.png");
+        fruits[5] = loadImage("kiwi.png");
+        fruits[6] = loadImage("lime.png");
+        fruits[7] = loadImage("mango.png");
+        fruits[8] = loadImage("orange.png");
+        fruits[9] = loadImage("pear.png");
+        fruits[10] = loadImage("watermelon.png");
+        fruits[11] = loadImage("strawberry.png");
+
+        //Scales images
+        scaleImages();
     }
-    System.out.println(intImageY);
-  }
 
-  /*public void mouseDragged(){
-  for (int i = 0; i < circleX.length; i++){
-    if (dist(mouseX, mouseY, circleX[i], circleY[i]) < 25){
-      ellipse(circleX[i], circleY[i], 25, 25);
-      fill (252, 126, 191);
-    }
-  }
-
-  }*/
-
-  public void mouseTrail(){
-    trail.add(new PVector(mouseX,mouseY));
-    if(trail.size() > 10){
-      trail.remove(0);
+    /**
+     * Called repeatedly, anything drawn to the screen goes here
+     */
+    public void draw() {
+        background(50);
+        fruit();
+        mouseTrail();
     }
 
-    for (int i = 0; i < trail.size(); i++){
-      PVector p = trail.get(i); 
-
-      float size = 10 * i / trail.size();
-      ellipse (p.x, p.y, size,size);
+    public void scaleImages() {
+        for (int i = 0; i < fruits.length; i++) {
+            fruits[i].resize((int) (Double.valueOf(fruits[i].width) * dblSize), (int) (Double.valueOf(fruits[i].height) * dblSize));
+        }
+        for (int i = 0; i < fruitsCut.length; i++) {
+            fruitsCut[i].resize((int) (Double.valueOf(fruitsCut[i].width) * dblSize), (int) (Double.valueOf(fruitsCut[i].height) * dblSize));
+        }
+        for (int i = 0; i < fruitsStatic.length; i++) {
+            fruitsStatic[i].resize((int) (Double.valueOf(fruitsStatic[i].width) * dblSize), (int) (Double.valueOf(fruitsStatic[i].height) * dblSize));
+        }
     }
 
-  }
+    public void fruit() {
+        for (int i = 0; i < circleY.length; i++) {
+            image(fruits[i], circleX[i], circleY[i]);
+            circleY[i]++;
+            if (keyCode == DOWN) {
+                circleY[i] += 3;
+            } else if (keyCode == UP) {
+                circleY[i] -= 0.5;
+            }
+            if (circleY[i] > height) {
+              if(fruits[i] == fruitsStatic[i]){
+                lives--;
+                System.out.println(lives);
+              }else{
+                //Code for points
+              }
+              fruits[i] = fruitsStatic[i];
+              circleY[i] = 0;
+            }
+        }
+        //Code for next level
+    }
+
+    public void mouseDragged() {
+        for (int i = 0; i < circleX.length; i++) {
+            if (dist(mouseX, mouseY, circleX[i], circleY[i]) < (int) (500 * dblSize)) {
+                fruits[i] = fruitsCut[i];
+            }
+        }
+
+    }
+
+    public void mouseTrail() {
+        trail.add(new PVector(mouseX, mouseY));
+        if (trail.size() > 10) {
+            trail.remove(0);
+        }
+
+        for (int i = 0; i < trail.size(); i++) {
+            PVector p = trail.get(i);
+
+            float size = 10 * i / trail.size();
+            ellipse(p.x, p.y, size, size);
+        }
+
+    }
 }
