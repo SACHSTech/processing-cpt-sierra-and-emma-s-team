@@ -12,15 +12,24 @@ public class Sketch2 extends PApplet {
 
   // backgrounds 
   PImage imgbg1; 
+
+  // buttons 
   PImage imgStart;
+  PImage imgTutorial;
 
   //fruit pngs
 
   //start button 
-  int startWidth = 220;
-  int startHeight = 220;
-  int startX = 200;
-  int startY = 200;
+  int startWidth = 200;
+  int startHeight = 180;
+  int startX = 195;
+  int startY = 250;
+
+  //tutorial button 
+  int tutorialWidth = 200;
+  int tutorialHeight = 180;
+  int tutorialX = 10; 
+  int tutorialY = 250; 
   
   //screens
   int screen = 0; 
@@ -49,6 +58,8 @@ public class Sketch2 extends PApplet {
     imgStart = loadImage("/Images/start.png"); 
     imgStart.resize(startWidth, startHeight);
 
+    imgTutorial = loadImage("/Images/tutorial.png"); 
+    imgTutorial.resize(tutorialWidth,tutorialHeight);
 
     
     // determine Y value for circles 
@@ -67,11 +78,16 @@ public class Sketch2 extends PApplet {
   public void draw() {
     mouseTrail();
     startButton();
+    tutorialButton();
     if (screen == 1){
       snow();
-    } else {
+    } else if (screen == 2){
+      tutorial(); 
+    }
+     else {
       image(imgbg1, 0, 0);
       image(imgStart, startX, startY);
+      image(imgTutorial, tutorialX, tutorialY);
     }
   }
 
@@ -119,7 +135,8 @@ public class Sketch2 extends PApplet {
 
   public void startButton(){
     image(imgbg1, 0, 0);
-    image(imgStart, startX, startY);
+      image(imgStart, startX, startY);
+      image(imgTutorial, tutorialX, tutorialY);
     if (mouseX > startX && mouseX < startX + startWidth && mouseY > startY && mouseY < startY + startHeight) {
       if (mousePressed) {
         screen = 1;
@@ -128,8 +145,30 @@ public class Sketch2 extends PApplet {
     else {
       image(imgbg1, 0, 0);
       image(imgStart, startX, startY);
+      image(imgTutorial, tutorialX, tutorialY);
     }
   }
+  }
+
+  public void tutorialButton(){
+    image(imgbg1, 0, 0);
+      image(imgStart, startX, startY);
+      image(imgTutorial, tutorialX, tutorialY);
+    if (mouseX > tutorialX && mouseX < tutorialX + tutorialWidth && mouseY > tutorialY && mouseY < tutorialY + tutorialHeight) {
+      if (mousePressed) {
+        screen = 2;
+        background(0);
+      } 
+    else {
+      image(imgbg1, 0, 0);
+      image(imgStart, startX, startY);
+      image(imgTutorial, tutorialX, tutorialY);
+    }
+  }
+  }
+
+  public void tutorial(){
+
   }
 }
 
