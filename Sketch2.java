@@ -231,8 +231,32 @@ public void fruit() {
   }
 
   public void tutorial(){
+    background(50);
+    int i = 10;
+      image(fruits[i], circleX[i], circleY[i]);
+      circleY[i]++;
+      if (keyCode == DOWN) {
+          circleY[i] += 3;
+      } else if (keyCode == UP) {
+          circleY[i] -= 0.5;
+      }
+      if (circleY[i] > height) {
+        if(fruits[i] == fruitsStatic[i]){
+          lives--;
+          System.out.println(lives);
+        }else{
+          //Code for points
+        }
+        fruits[i] = fruitsStatic[i];
+        circleY[i] = 0;
+      }
+  }
+
+  public void lives(){ 
 
   }
+
+
   
 
 }
