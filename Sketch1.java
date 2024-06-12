@@ -11,7 +11,7 @@ public class Sketch1 extends PApplet {
   PImage[] fruits = new PImage[12];
   PImage[] fruitsCut = new PImage[12];
   PImage[] fruitsStatic = new PImage[12];
-  double dblSize = 0.1;
+  double dblSize = 0.3;
   int lives = 3;
 
   // backgrounds 
@@ -34,6 +34,12 @@ public class Sketch1 extends PApplet {
   int tutorialHeight = 180;
   int tutorialX = 10; 
   int tutorialY = 250; 
+
+  //tutorial text
+  PImage imgTextOne;
+  PImage imgTextTwo;
+  int textWidth = 100;
+  int textHeight = 50;
   
   //screens
   int screen = 0; 
@@ -64,6 +70,12 @@ public class Sketch1 extends PApplet {
 
     imgTutorial = loadImage("tutorial.png"); 
     imgTutorial.resize(tutorialWidth,tutorialHeight);
+
+    imgTextOne = loadImage("firsttext.png"); 
+    imgTextOne.resize(textWidth*4,textHeight*8);
+
+    imgTextTwo = loadImage("secondtext.png"); 
+    imgTextTwo.resize(textWidth*4,textHeight*8);
 
     
     // determine Y value for circles 
@@ -232,24 +244,11 @@ public void fruit() {
 
   public void tutorial(){
     background(50);
+    image(imgTextOne, -30, -100);
     int i = 10;
-      image(fruits[i], circleX[i], circleY[i]);
-      circleY[i]++;
-      if (keyCode == DOWN) {
-          circleY[i] += 3;
-      } else if (keyCode == UP) {
-          circleY[i] -= 0.5;
-      }
-      if (circleY[i] > height) {
-        if(fruits[i] == fruitsStatic[i]){
-          lives--;
-          System.out.println(lives);
-        }else{
-          //Code for points
-        }
-        fruits[i] = fruitsStatic[i];
-        circleY[i] = 0;
-      }
+    image(fruits[i], circleX[i], circleY[i]);
+    circleY[i]++;
+    //image(imgTextTwo, -30, -100);
   }
 
   public void lives(){ 
