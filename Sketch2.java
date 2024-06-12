@@ -14,6 +14,11 @@ public class Sketch2 extends PApplet {
   double dblSize = 0.1;
   int lives = 3;
 
+  // fruit points
+  int[] fruitPoints = {10, 20, 15, 25, 30, 20, 15, 25, 20, 15, 30, 25};
+  int score = 0; 
+
+
   // backgrounds 
   PImage imgbg1; 
 
@@ -21,7 +26,11 @@ public class Sketch2 extends PApplet {
   PImage imgStart;
   PImage imgTutorial;
 
-  //fruit pngs
+  //lives
+  PImage imgHeart; 
+  int heartWidth = 25; 
+  int heartHeight = 25; 
+  PImage imgX;
 
   //start button 
   int startWidth = 200;
@@ -48,22 +57,21 @@ public class Sketch2 extends PApplet {
 
   }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
   public void setup() {
     background(210, 255, 173);
     noStroke();
 
-    imgbg1 = loadImage("/Images/bg1.png");
+    imgbg1 = loadImage("bg1.png");
     imgbg1.resize(width, height);
 
-    imgStart = loadImage("/Images/start.png"); 
+    imgStart = loadImage("start.png"); 
     imgStart.resize(startWidth, startHeight);
 
-    imgTutorial = loadImage("/Images/tutorial.png"); 
+    imgTutorial = loadImage("tutorial.png"); 
     imgTutorial.resize(tutorialWidth,tutorialHeight);
+
+    imgHeart = loadImage("/images/heart.png");
+    imgHeart.resize(heartWidth,heartHeight); 
 
     
     // determine Y value for circles 
@@ -119,15 +127,16 @@ public class Sketch2 extends PApplet {
     scaleImages();
     }
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
   public void draw() {
-    
+    fill(255);
+    textSize(20);
+    text("Score: " + score, 20, 20);
     if (screen == 1){
       background (50);
+      lives();
       fruit();
     } else if (screen == 2){
+      dblSize = 0.5;
       tutorial(); 
     }
      else {
@@ -174,7 +183,6 @@ public void fruit() {
   }
   //Code for next level
 }
-
 
   public void mouseDragged(){
     for (int i = 0; i < circleX.length; i++) {
@@ -231,6 +239,7 @@ public void fruit() {
   }
 
   public void tutorial(){
+    
     background(50);
     int i = 10;
       image(fruits[i], circleX[i], circleY[i]);
@@ -252,14 +261,21 @@ public void fruit() {
       }
   }
 
-  public void lives(){ 
-
+  public void lives(){
+    if (screen == 1) {
+      for (int i = 0; i < lives; i++) {
+        float x = width - 35 - i * 35;
+        float y = 20;
+        image(imgHeart, x, y);
+      }
+    if (lives <= 0){
+      background(255);
+      textSize(50);
+      fill(0);
+      textAlign(CENTER,CENTER);
+      text("You Lose", width/2, height/2);
+    }
   }
-
-
-  
-
 }
-
-
+}
 
