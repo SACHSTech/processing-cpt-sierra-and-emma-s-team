@@ -11,25 +11,30 @@ public class Sketch2 extends PApplet {
   PImage[] fruits = new PImage[12];
   PImage[] fruitsCut = new PImage[12];
   PImage[] fruitsStatic = new PImage[12];
-  double dblSize = 0.1;
+  double dblSize = 0.3;
   int lives = 3;
 
   // fruit points
+  int[] fruitPoints = {200, 400, 1000, 5000};
   int score = 0; 
-
 
   // backgrounds 
   PImage imgbg1; 
+  PImage imgLvlTwo;
+  PImage imgLvlThree; 
+  PImage imgLvlFour; 
+  PImage imgYouWin;
+  PImage imgYouLose; 
 
   // buttons 
   PImage imgStart;
   PImage imgTutorial;
+  PImage imgNextLvl;
 
   //lives
   PImage imgHeart; 
   int heartWidth = 25; 
   int heartHeight = 25; 
-  PImage imgX;
 
   //start button 
   int startWidth = 200;
@@ -43,6 +48,12 @@ public class Sketch2 extends PApplet {
   int tutorialX = 10; 
   int tutorialY = 250; 
 
+  // next level button 
+  int nextLvlWidth = 200;
+  int nextLvlHeight = 180;
+  int nextLvlX = 110; 
+  int nextLvlY = 250; 
+
    //tutorial text
    PImage imgTextOne;
    PImage imgTextTwo;
@@ -52,14 +63,12 @@ public class Sketch2 extends PApplet {
   //screens
   int screen = 0; 
 
-
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
     size(400, 400);
-
   }
 
   public void setup() {
@@ -75,7 +84,7 @@ public class Sketch2 extends PApplet {
     imgTutorial = loadImage("tutorial.png"); 
     imgTutorial.resize(tutorialWidth,tutorialHeight);
 
-    imgHeart = loadImage("/images/heart.png");
+    imgHeart = loadImage("heart.png");
     imgHeart.resize(heartWidth,heartHeight); 
 
     imgTextOne = loadImage("firsttext.png"); 
@@ -84,16 +93,33 @@ public class Sketch2 extends PApplet {
     imgTextTwo = loadImage("secondtext.png"); 
     imgTextTwo.resize(textWidth*4,textHeight*8);
 
+    imgLvlTwo = loadImage("/images/level2.png"); 
+    imgLvlTwo.resize(width, height);
 
+    imgNextLvl = loadImage("/images/NextLvl.png");
+    imgNextLvl.resize(nextLvlWidth, nextLvlHeight);
+
+    imgLvlThree = loadImage("/images/level3.png"); 
+    imgLvlThree.resize(width, height);
     
+    imgYouLose = loadImage("/images/youLose.png"); 
+    imgYouLose.resize(width, height);
+
+    imgLvlFour = loadImage("/images/level4.png"); 
+    imgLvlFour.resize(width, height);
+
+    imgYouWin = loadImage("/images/win.png"); 
+    imgYouWin.resize(width, height);
+
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++) {
       circleY[i] = random(200);
-  }
-  // Dertermine the X for the circles 
-  for (int i = 0; i < circleX.length; i++) {
+    }
+
+    // Dertermine the X for the circles 
+    for (int i = 0; i < circleX.length; i++) {
       circleX[i] = random(0,width-100);
-  }
+    }
 
     fruitsCut[0] = loadImage("bananacut.png");
     fruitsCut[1] = loadImage("blueberrycut.png");
@@ -137,120 +163,175 @@ public class Sketch2 extends PApplet {
 
     //Scales images
     scaleImages();
-    }
+  }
 
   public void draw() {
-    fill(255);
-    textSize(20); 
     if (screen == 1){
-      background (50);
-      if (lives != 0){ 
-        fruit();
-      }
+      background(50);
+      fruit();
       lives();
+      // Display the score in the top left in white font
+      fill(255);
+      textSize(20);
+      text("Score: " + score, 20, 30);
+      if (score == 100){
+        screen = 3;
+      }
+
     } else if (screen == 2){
-      dblSize = 0.5;
+       dblSize += 0.3;
       tutorial(); 
+    } else if (screen == 3){
+      // cut screen to level 2 
+      background (0);
+      image(imgLvlTwo, 0, 0);
+      nextLevel();
+    } else if (screen == 4){
+      // figure out how to change the code for lvl 2 
+        background(50);
+        fruit();
+        lives();
+        // Display the score in the top left in white font
+        fill(255);
+        textSize(20);
+        text("Score: " + score, 20, 30);
+        if (score == 300){
+          screen = 5;
+        }
+    } else if (screen == 5){
+    // cut screen to go to level three 
+      background(0);
+      image(imgLvlThree, 0, 0);
+      nextLevel();
+    } else if (screen == 6){ 
+      // add code for level three 
+        background(50);
+        fruit();
+        lives();
+        // Display the score in the top left in white font
+        fill(255);
+        textSize(20);
+        text("Score: " + score, 20, 30);
+        if (score == 900){
+          screen = 7;
+        }
+    } else if (screen == 7) {
+    //cut screen to go to level 4 
+      background(0);
+      image(imgLvlFour, 0, 0);
+      nextLevel();
+    } else if (screen == 8){
+      // code for level 4 
+      background(50);
+        fruit();
+        lives();
+        // Display the score in the top left in white font
+        fill(255);
+        textSize(20);
+        text("Score: " + score, 20, 30);
+        if (score == 1200){
+          screen = 9;
+        }
+    } else if (screen == 9){
+      background(0);
+      image(imgYouWin, 0, 0);
     }
-     else {
+    else {
       image(imgbg1, 0, 0);
       image(imgStart, startX, startY);
       image(imgTutorial, tutorialX, tutorialY);
       startButton();
       tutorialButton();
     }
+
     mouseTrail();
   }
 
   public void scaleImages() {
     for (int i = 0; i < fruits.length; i++) {
-        fruits[i].resize((int) (Double.valueOf(fruits[i].width) * dblSize), (int) (Double.valueOf(fruits[i].height) * dblSize));
+      fruits[i].resize((int) (Double.valueOf(fruits[i].width) * dblSize), (int) (Double.valueOf(fruits[i].height) * dblSize));
     }
     for (int i = 0; i < fruitsCut.length; i++) {
-        fruitsCut[i].resize((int) (Double.valueOf(fruitsCut[i].width) * dblSize), (int) (Double.valueOf(fruitsCut[i].height) * dblSize));
+      fruitsCut[i].resize((int) (Double.valueOf(fruitsCut[i].width) * dblSize), (int) (Double.valueOf(fruitsCut[i].height) * dblSize));
     }
     for (int i = 0; i < fruitsStatic.length; i++) {
-        fruitsStatic[i].resize((int) (Double.valueOf(fruitsStatic[i].width) * dblSize), (int) (Double.valueOf(fruitsStatic[i].height) * dblSize));
+      fruitsStatic[i].resize((int) (Double.valueOf(fruitsStatic[i].width) * dblSize), (int) (Double.valueOf(fruitsStatic[i].height) * dblSize));
     }
-}
+  }
 
-public void fruit(){
-  for (int i = 0; i < circleY.length; i++) {
+  public void fruit() {
+    for (int i = 0; i < circleY.length; i++) {
       image(fruits[i], circleX[i], circleY[i]);
       circleY[i]++;
       if (keyCode == DOWN) {
-          circleY[i] += 3;
+        circleY[i] += 3;
       } else if (keyCode == UP) {
-          circleY[i] -= 0.5;
+        circleY[i] -= 0.5;
       }
-      if (circleY[i] > height) {
+      if (circleY[i]+(fruits[i].height/2) > height) {
         if(fruits[i] == fruitsStatic[i]){
           lives--;
           System.out.println(lives);
-        }else{
-          //Code for points
         }
         fruits[i] = fruitsStatic[i];
         circleY[i] = 0;
       }
-    } 
+    }
     //Code for next level
   }
-  
 
   public void mouseDragged(){
     for (int i = 0; i < circleX.length; i++) {
       if (dist(mouseX, mouseY, circleX[i], circleY[i]) < (int) (500 * dblSize)) {
+        if (fruits[i] != fruitsCut[i]) {
           fruits[i] = fruitsCut[i];
-        score ++;
+          score += 10;
+        }
       }
     }
   }
 
   public void mouseTrail(){
-    trail.add(new PVector(mouseX,mouseY));
+    trail.add(new PVector(mouseX, mouseY));
     if(trail.size() > 10){
       trail.remove(0);
     }
 
     for (int i = 0; i < trail.size(); i++){
       PVector p = trail.get(i); 
-
       float size = 10 * i / trail.size();
-      ellipse (p.x, p.y, size,size);
+      ellipse (p.x, p.y, size, size);
     }
   }
 
   public void startButton(){
     image(imgbg1, 0, 0);
-      image(imgStart, startX, startY);
-      image(imgTutorial, tutorialX, tutorialY);
+    image(imgStart, startX, startY);
+    image(imgTutorial, tutorialX, tutorialY);
     if (mouseX > startX && mouseX < startX + startWidth && mouseY > startY && mouseY < startY + startHeight) {
       if (mousePressed) {
         screen = 1;
-      } 
-    else {
-      image(imgbg1, 0, 0);
-      image(imgStart, startX, startY);
-      image(imgTutorial, tutorialX, tutorialY);
+      } else {
+        image(imgbg1, 0, 0);
+        image(imgStart, startX, startY);
+        image(imgTutorial, tutorialX, tutorialY);
+      }
     }
-  }
   }
 
   public void tutorialButton(){
     image(imgbg1, 0, 0);
-      image(imgStart, startX, startY);
-      image(imgTutorial, tutorialX, tutorialY);
+    image(imgStart, startX, startY);
+    image(imgTutorial, tutorialX, tutorialY);
     if (mouseX > tutorialX && mouseX < tutorialX + tutorialWidth && mouseY > tutorialY && mouseY < tutorialY + tutorialHeight) {
       if (mousePressed) {
         screen = 2;
-      } 
-    else {
-      image(imgbg1, 0, 0);
-      image(imgStart, startX, startY);
-      image(imgTutorial, tutorialX, tutorialY);
+      } else {
+        image(imgbg1, 0, 0);
+        image(imgStart, startX, startY);
+        image(imgTutorial, tutorialX, tutorialY);
+      }
     }
-  }
   }
 
   public void tutorial(){
@@ -259,6 +340,7 @@ public void fruit(){
     int i = 10;
     image(fruits[i], circleX[i], circleY[i]);
     circleY[i]++;
+
     //image(imgTextTwo, -30, -100);
   }
 
@@ -269,14 +351,19 @@ public void fruit(){
         float y = 20;
         image(imgHeart, x, y);
       }
-    if (lives <= 0){
-      background(255);
-      textSize(50);
-      fill(0);
-      textAlign(CENTER,CENTER);
-      text("You Lose", width/2, height/2);
+      if (lives <= 0){
+        background(255);
+        image(imgYouLose, 0, 0);
+      }
+    }
+  }
+  
+  public void nextLevel(){
+    image(imgNextLvl, nextLvlX, nextLvlY); 
+    if (mouseX > nextLvlX && mouseX < nextLvlX + nextLvlWidth && mouseY > nextLvlY && mouseY < nextLvlY + nextLvlHeight) {
+      if (mousePressed) {
+        screen += 1;
+      }
     }
   }
 }
-}
-
