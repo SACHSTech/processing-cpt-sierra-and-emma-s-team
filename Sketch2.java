@@ -15,7 +15,6 @@ public class Sketch2 extends PApplet {
   int lives = 3;
 
   // fruit points
-  int[] fruitPoints = {10, 20, 15, 25, 30, 20, 15, 25, 20, 15, 30, 25};
   int score = 0; 
 
 
@@ -93,7 +92,7 @@ public class Sketch2 extends PApplet {
   }
   // Dertermine the X for the circles 
   for (int i = 0; i < circleX.length; i++) {
-      circleX[i] = random(width);
+      circleX[i] = random(0,width-100);
   }
 
     fruitsCut[0] = loadImage("bananacut.png");
@@ -142,12 +141,13 @@ public class Sketch2 extends PApplet {
 
   public void draw() {
     fill(255);
-    textSize(20);
-    text("Score: " + score, 20, 20);
+    textSize(20); 
     if (screen == 1){
       background (50);
+      if (lives != 0){ 
+        fruit();
+      }
       lives();
-      fruit();
     } else if (screen == 2){
       dblSize = 0.5;
       tutorial(); 
@@ -174,7 +174,7 @@ public class Sketch2 extends PApplet {
     }
 }
 
-public void fruit() {
+public void fruit(){
   for (int i = 0; i < circleY.length; i++) {
       image(fruits[i], circleX[i], circleY[i]);
       circleY[i]++;
@@ -193,14 +193,16 @@ public void fruit() {
         fruits[i] = fruitsStatic[i];
         circleY[i] = 0;
       }
+    } 
+    //Code for next level
   }
-  //Code for next level
-}
+  
 
   public void mouseDragged(){
     for (int i = 0; i < circleX.length; i++) {
       if (dist(mouseX, mouseY, circleX[i], circleY[i]) < (int) (500 * dblSize)) {
           fruits[i] = fruitsCut[i];
+        score ++;
       }
     }
   }
