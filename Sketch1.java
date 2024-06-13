@@ -14,8 +14,7 @@ public class Sketch1 extends PApplet {
   double dblSize = 0.3;
   int lives = 3;
 
-  // fruit points
-  int[] fruitPoints = {200, 400, 1000, 5000};
+  // score 
   int score = 0; 
 
   // backgrounds 
@@ -51,6 +50,13 @@ public class Sketch1 extends PApplet {
   //screens
   int screen = 0; 
 
+  //levels
+  PImage imgLevelOne;
+  PImage imgLevelTwo;
+  PImage imgLevelThree;
+  PImage imgLevelFour;
+
+
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
@@ -80,6 +86,18 @@ public class Sketch1 extends PApplet {
 
     imgTextTwo = loadImage("secondtext.png"); 
     imgTextTwo.resize(textWidth*4,textHeight*8);
+
+    imgLevelOne = loadImage("levelone.png"); 
+    imgLevelOne.resize(textWidth*4,textHeight*8);
+    
+    imgLevelTwo = loadImage("leveltwo.png"); 
+    imgLevelTwo.resize(textWidth*4,textHeight*8);
+
+    imgLevelThree = loadImage("levelthree.png"); 
+    imgLevelThree.resize(textWidth*4,textHeight*8);
+
+    imgLevelFour = loadImage("levelfour.png"); 
+    imgLevelFour.resize(textWidth*4,textHeight*8);
 
     // determine Y value for circles 
     for (int i = 0; i < circleY.length; i++) {
@@ -144,7 +162,18 @@ public class Sketch1 extends PApplet {
       fill(255);
       textSize(20);
       text("Score: " + score, 20, 30);
-
+      if (score == 0){
+        image(imgLevelOne, 0, -100);
+      } else if (score == 500){
+        image(imgLevelTwo, 0, -100);
+      }
+      else if(score == 1000){
+        image(imgLevelThree, 0, -100);
+      } else if(score == 3000) {
+        image(imgLevelFour, 0, -100);
+      } else if (score == 6000) {
+        screen = 3;
+      }
     } else if (screen == 2){
       dblSize = 0.5;
       tutorial(); 
@@ -189,7 +218,6 @@ public class Sketch1 extends PApplet {
         circleY[i] = 0;
       }
     }
-    //Code for next level
   }
 
   public void mouseDragged(){
