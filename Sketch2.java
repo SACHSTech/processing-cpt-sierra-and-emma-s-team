@@ -11,11 +11,10 @@ public class Sketch2 extends PApplet {
   PImage[] fruits = new PImage[12];
   PImage[] fruitsCut = new PImage[12];
   PImage[] fruitsStatic = new PImage[12];
-  double dblSize = 0.3;
+  double dblSize = 0.2;
   int lives = 400;
 
   // fruit points
-  int[] fruitPoints = {200, 400, 1000, 5000};
   int score = 0; 
 
   // backgrounds 
@@ -174,7 +173,7 @@ public class Sketch2 extends PApplet {
       fill(255);
       textSize(20);
       text("Score: " + score, 20, 30);
-      if (score == 100){
+      if (score == 300){
         screen = 3;
       }
 
@@ -189,6 +188,7 @@ public class Sketch2 extends PApplet {
     } else if (screen == 4){
       // figure out how to change the code for lvl 2 
         background(50);
+        lives();
         fruit();
         // Display the score in the top left in white font
         fill(255);
@@ -258,6 +258,9 @@ public class Sketch2 extends PApplet {
   }
 
   public void fruit() {
+    if (lives == 0){
+      return; 
+    }else{
     for (int i = 0; i < circleY.length; i++) {
       image(fruits[i], circleX[i], circleY[i]);
       circleY[i]++;
@@ -274,6 +277,7 @@ public class Sketch2 extends PApplet {
         fruits[i] = fruitsStatic[i];
         circleY[i] = 0;
       }
+    }
     }
     //Code for next level
   }
@@ -348,7 +352,7 @@ public class Sketch2 extends PApplet {
       rect(0,00,20,lives);
       }
       if (lives <= 0){
-        background(255);
+        background(0);
         image(imgYouLose, 0, 0);
       }
     }
