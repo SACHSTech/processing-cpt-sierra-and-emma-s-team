@@ -11,7 +11,7 @@ public class Sketch2 extends PApplet {
   PImage[] fruits = new PImage[12];
   PImage[] fruitsCut = new PImage[12];
   PImage[] fruitsStatic = new PImage[12];
-  double dblSize = 0.2;
+  double dblSize = 0.3;
   int lives = 400;
   int fruitSpeed = 1;
 
@@ -176,6 +176,7 @@ public class Sketch2 extends PApplet {
       text("Score: " + score, 20, 30);
       if (score == 300){
         screen = 3;
+        backTop();
       }
 
     } else if (screen == 2){
@@ -189,6 +190,10 @@ public class Sketch2 extends PApplet {
     } else if (screen == 4){
       // lvl 2 
        fruitSpeed = 2;
+       if(dblSize == 0.3){
+        dblSize = 0.83;
+        scaleImages();
+       }
         background(50);
         lives();
         fruit();
@@ -207,7 +212,11 @@ public class Sketch2 extends PApplet {
       nextLevel();
     } else if (screen == 6){ 
       //level three 
-        fruitSpeed = 4;
+        fruitSpeed = 3;
+        if(dblSize == 0.83){
+          dblSize = 0.73;
+          scaleImages();
+         }
         background(50);
         lives();
         fruit();
@@ -226,7 +235,11 @@ public class Sketch2 extends PApplet {
       nextLevel();
     } else if (screen == 8){
       // level 4 
-      fruitSpeed = 5; 
+      fruitSpeed = 4; 
+      if(dblSize == 0.73){
+        dblSize = 0.63;
+        scaleImages();
+       }
       background(50);
         fruit();
         lives();
@@ -234,8 +247,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 3000){
-        if (score == 2100){
+        if (score >= 2100){
           screen = 9;
         }
     } else if (screen == 9){
@@ -256,12 +268,9 @@ public class Sketch2 extends PApplet {
   public void scaleImages() {
     for (int i = 0; i < fruits.length; i++) {
       fruits[i].resize((int) (Double.valueOf(fruits[i].width) * dblSize), (int) (Double.valueOf(fruits[i].height) * dblSize));
-    }
-    for (int i = 0; i < fruitsCut.length; i++) {
       fruitsCut[i].resize((int) (Double.valueOf(fruitsCut[i].width) * dblSize), (int) (Double.valueOf(fruitsCut[i].height) * dblSize));
-    }
-    for (int i = 0; i < fruitsStatic.length; i++) {
       fruitsStatic[i].resize((int) (Double.valueOf(fruitsStatic[i].width) * dblSize), (int) (Double.valueOf(fruitsStatic[i].height) * dblSize));
+      fruits[i] = fruitsStatic[i];
     }
   }
 
@@ -292,7 +301,7 @@ public class Sketch2 extends PApplet {
 
   public void mouseDragged(){
     for (int i = 0; i < circleX.length; i++) {
-      if (dist(mouseX, mouseY, circleX[i], circleY[i]) < (int) (500 * dblSize)) {
+      if (dist(mouseX, mouseY, circleX[i], circleY[i]) < (int) (fruitsStatic[i].width)) {
         if (fruits[i] != fruitsCut[i]) {
           fruits[i] = fruitsCut[i];
           score += 10;
@@ -357,7 +366,7 @@ public class Sketch2 extends PApplet {
   public void lives(){
     if (screen >= 1) {
       fill(0, 255, 115);
-      rect(0,00,20,lives);
+      rect(0,0,20,lives);
       }
       if (lives <= 0){
         background(0);
@@ -371,6 +380,12 @@ public class Sketch2 extends PApplet {
       if (mousePressed) {
         screen += 1;
       }
+    }
+  }
+
+  public void backTop(){
+    for(int i = 0; i < fruits.length; i++){
+      circleY[i] = random(200);
     }
   }
 }
