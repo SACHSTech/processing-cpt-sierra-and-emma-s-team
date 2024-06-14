@@ -13,6 +13,7 @@ public class Sketch2 extends PApplet {
   PImage[] fruitsStatic = new PImage[12];
   double dblSize = 0.2;
   int lives = 400;
+  int fruitSpeed = 1;
 
   // fruit points
   int score = 0; 
@@ -186,7 +187,8 @@ public class Sketch2 extends PApplet {
       image(imgLvlTwo, 0, 0);
       nextLevel();
     } else if (screen == 4){
-      // figure out how to change the code for lvl 2 
+      // lvl 2 
+       fruitSpeed = 2;
         background(50);
         lives();
         fruit();
@@ -194,7 +196,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 300){
+        if (score == 900){
           screen = 5;
         }
     } else if (screen == 5){
@@ -203,14 +205,16 @@ public class Sketch2 extends PApplet {
       image(imgLvlThree, 0, 0);
       nextLevel();
     } else if (screen == 6){ 
-      // add code for level three 
+      //level three 
+        fruitSpeed = 4;
         background(50);
+        lives();
         fruit();
         // Display the score in the top left in white font
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 900){
+        if (score == 1800){
           screen = 7;
         }
     } else if (screen == 7) {
@@ -219,7 +223,8 @@ public class Sketch2 extends PApplet {
       image(imgLvlFour, 0, 0);
       nextLevel();
     } else if (screen == 8){
-      // code for level 4 
+      // level 4 
+      fruitSpeed = 5; 
       background(50);
         fruit();
         lives();
@@ -227,7 +232,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 1200){
+        if (score == 30000){
           screen = 9;
         }
     } else if (screen == 9){
@@ -263,7 +268,7 @@ public class Sketch2 extends PApplet {
     }else{
     for (int i = 0; i < circleY.length; i++) {
       image(fruits[i], circleX[i], circleY[i]);
-      circleY[i]++;
+      circleY[i]+= fruitSpeed;
       if (keyCode == DOWN) {
         circleY[i] += 3;
       } else if (keyCode == UP) {
