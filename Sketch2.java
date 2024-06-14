@@ -232,7 +232,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 30000){
+        if (score == 2100){
           screen = 9;
         }
     } else if (screen == 9){
