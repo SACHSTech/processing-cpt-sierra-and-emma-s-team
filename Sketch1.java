@@ -13,9 +13,9 @@ public class Sketch1 extends PApplet {
   PImage[] fruitsStatic = new PImage[12];
   double dblSize = 0.3;
   int lives = 400;
+  int fruitSpeed = 1;
 
   // fruit points
-  int[] fruitPoints = {200, 400, 1000, 5000};
   int score = 0; 
 
   // backgrounds 
@@ -166,14 +166,10 @@ public class Sketch1 extends PApplet {
       fill(255);
       textSize(20);
       text("Score: " + score, 20, 30);
-      if (score == 200){
+      if (score == 300){
         screen = 3;
-        dblSize = 0.25;
-        scaleImages();
       }
-
     } else if (screen == 2){
-       dblSize = 0.3;
       tutorial(); 
     } else if (screen == 3){
       // cut screen to level 2 
@@ -181,16 +177,17 @@ public class Sketch1 extends PApplet {
       image(imgLvlTwo, 0, 0);
       nextLevel();
     } else if (screen == 4){
-      // figure out how to change the code for lvl 2 
+      // lvl 2 
+       fruitSpeed = 2;
         background(50);
+        lives();
         fruit();
         // Display the score in the top left in white font
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 600){
+        if (score == 800){
           screen = 5;
-    
         }
     } else if (screen == 5){
     // cut screen to go to level three 
@@ -198,14 +195,16 @@ public class Sketch1 extends PApplet {
       image(imgLvlThree, 0, 0);
       nextLevel();
     } else if (screen == 6){ 
-      // add code for level three 
+      //level three 
+        fruitSpeed = 4;
         background(50);
+        lives();
         fruit();
         // Display the score in the top left in white font
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 1500){
+        if (score == 1200){
           screen = 7;
         }
     } else if (screen == 7) {
@@ -214,7 +213,8 @@ public class Sketch1 extends PApplet {
       image(imgLvlFour, 0, 0);
       nextLevel();
     } else if (screen == 8){
-      // code for level 4 
+      // level 4 
+      fruitSpeed = 5; 
       background(50);
         fruit();
         lives();
@@ -253,9 +253,12 @@ public class Sketch1 extends PApplet {
   }
 
   public void fruit() {
+    if (lives == 0){
+      return; 
+    }else{
     for (int i = 0; i < circleY.length; i++) {
       image(fruits[i], circleX[i], circleY[i]);
-      circleY[i]++;
+      circleY[i]+= fruitSpeed;
       if (keyCode == DOWN) {
         circleY[i] += 3;
       } else if (keyCode == UP) {
@@ -269,6 +272,7 @@ public class Sketch1 extends PApplet {
         fruits[i] = fruitsStatic[i];
         circleY[i] = 0;
       }
+    }
     }
     //Code for next level
   }
@@ -333,7 +337,6 @@ public class Sketch1 extends PApplet {
     int i = 10;
     image(fruits[i], circleX[i], circleY[i]);
     circleY[i]++;
-
     //image(imgTextTwo, -30, -100);
   }
 
@@ -343,7 +346,7 @@ public class Sketch1 extends PApplet {
       rect(0,00,20,lives);
       }
       if (lives <= 0){
-        background(255);
+        background(0);
         image(imgYouLose, 0, 0);
       }
     }
