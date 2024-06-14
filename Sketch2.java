@@ -176,6 +176,7 @@ public class Sketch2 extends PApplet {
       text("Score: " + score, 20, 30);
       if (score == 300){
         screen = 3;
+        backTop();
       }
 
     } else if (screen == 2){
@@ -193,9 +194,6 @@ public class Sketch2 extends PApplet {
         dblSize = 0.83;
         scaleImages();
        }
-       
-       
-       
         background(50);
         lives();
         fruit();
@@ -213,7 +211,7 @@ public class Sketch2 extends PApplet {
       nextLevel();
     } else if (screen == 6){ 
       //level three 
-        fruitSpeed = 4;
+        fruitSpeed = 3;
         if(dblSize == 0.83){
           dblSize = 0.73;
           scaleImages();
@@ -235,7 +233,7 @@ public class Sketch2 extends PApplet {
       nextLevel();
     } else if (screen == 8){
       // level 4 
-      fruitSpeed = 5; 
+      fruitSpeed = 4; 
       if(dblSize == 0.73){
         dblSize = 0.63;
         scaleImages();
@@ -247,7 +245,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 2100){
+        if (score >= 2100){
           screen = 9;
         }
     } else if (screen == 9){
@@ -380,6 +378,12 @@ public class Sketch2 extends PApplet {
       if (mousePressed) {
         screen += 1;
       }
+    }
+  }
+
+  public void backTop(){
+    for(int i = 0; i < fruits.length; i++){
+      circleY[i] = random(200);
     }
   }
 }
