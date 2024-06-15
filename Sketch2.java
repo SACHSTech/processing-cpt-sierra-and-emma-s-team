@@ -93,22 +93,22 @@ public class Sketch2 extends PApplet {
     imgTextTwo = loadImage("secondtext.png"); 
     imgTextTwo.resize(textWidth*4,textHeight*8);
 
-    imgLvlTwo = loadImage("/images/level2.png"); 
+    imgLvlTwo = loadImage("level2.png"); 
     imgLvlTwo.resize(width, height);
 
-    imgNextLvl = loadImage("/images/NextLvl.png");
+    imgNextLvl = loadImage("NextLvl.png");
     imgNextLvl.resize(nextLvlWidth, nextLvlHeight);
 
-    imgLvlThree = loadImage("/images/level3.png"); 
+    imgLvlThree = loadImage("level3.png"); 
     imgLvlThree.resize(width, height);
     
-    imgYouLose = loadImage("/images/youLose.png"); 
+    imgYouLose = loadImage("youLose.png"); 
     imgYouLose.resize(width, height);
 
-    imgLvlFour = loadImage("/images/level4.png"); 
+    imgLvlFour = loadImage("level4.png"); 
     imgLvlFour.resize(width, height);
 
-    imgYouWin = loadImage("/images/win.png"); 
+    imgYouWin = loadImage("win.png"); 
     imgYouWin.resize(width, height);
 
     // determine Y value for circles 
@@ -201,6 +201,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
+        if (score == 600){
         if (score == 900){
           screen = 5;
           backTop();
@@ -224,6 +225,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
+        if (score == 1000){
         if (score == 1800){
           screen = 7;
         }
