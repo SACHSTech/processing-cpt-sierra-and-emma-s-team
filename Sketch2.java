@@ -203,6 +203,7 @@ public class Sketch2 extends PApplet {
         text("Score: " + score, 20, 30);
         if (score == 900){
           screen = 5;
+          backTop();
         }
     } else if (screen == 5){
     // cut screen to go to level three 
