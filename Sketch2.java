@@ -201,7 +201,7 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 600){
+        if (score == 600){}
         if (score == 900){
           screen = 5;
         }
@@ -224,7 +224,6 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
-        if (score == 1000){
         if (score == 1800){
           screen = 7;
         }
@@ -264,6 +263,7 @@ public class Sketch2 extends PApplet {
 
     mouseTrail();
   }
+  
 
   public void scaleImages() {
     for (int i = 0; i < fruits.length; i++) {
