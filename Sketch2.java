@@ -5,14 +5,16 @@ import processing.core.PImage;
 
 public class Sketch2 extends PApplet {
 
+  //trail 
   ArrayList<PVector> trail = new ArrayList<PVector>();
+
+  //fruits
   float[] circleY = new float[12];
   float[] circleX = new float[12];
   PImage[] fruits = new PImage[12];
   PImage[] fruitsCut = new PImage[12];
   PImage[] fruitsStatic = new PImage[12];
   double dblSize = 0.3;
-  int lives = 400;
   int fruitSpeed = 1;
 
   // fruit points
@@ -32,9 +34,7 @@ public class Sketch2 extends PApplet {
   PImage imgNextLvl;
 
   //lives
-  PImage imgHeart; 
-  int heartWidth = 25; 
-  int heartHeight = 25; 
+  int lives = 400;
 
   //start button 
   int startWidth = 200;
@@ -63,11 +63,8 @@ public class Sketch2 extends PApplet {
   //screens
   int screen = 0; 
 
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
   public void settings() {
-	// put your size call here
+	//size call
     size(400, 400);
   }
 
@@ -75,6 +72,7 @@ public class Sketch2 extends PApplet {
     background(210, 255, 173);
     noStroke();
 
+    //load and resize images 
     imgbg1 = loadImage("bg1.png");
     imgbg1.resize(width, height);
 
@@ -83,9 +81,6 @@ public class Sketch2 extends PApplet {
 
     imgTutorial = loadImage("tutorial.png"); 
     imgTutorial.resize(tutorialWidth,tutorialHeight);
-
-    imgHeart = loadImage("heart.png");
-    imgHeart.resize(heartWidth,heartHeight); 
 
     imgTextOne = loadImage("firsttext.png"); 
     imgTextOne.resize(textWidth*4,textHeight*8);
@@ -121,6 +116,7 @@ public class Sketch2 extends PApplet {
       circleX[i] = random(0,width-100);
     }
 
+    //load images for fruits cut 
     fruitsCut[0] = loadImage("bananacut.png");
     fruitsCut[1] = loadImage("blueberrycut.png");
     fruitsCut[2] = loadImage("cherrycut.png");
@@ -134,6 +130,7 @@ public class Sketch2 extends PApplet {
     fruitsCut[10] = loadImage("watermeloncut.png");
     fruitsCut[11] = loadImage("strawberrycut.png");
 
+    //load images for uncut fruit 
     fruitsStatic[0] = loadImage("banana.png");
     fruitsStatic[1] = loadImage("blueberry.png");
     fruitsStatic[2] = loadImage("cherry.png");
@@ -166,6 +163,7 @@ public class Sketch2 extends PApplet {
   }
 
   public void draw() {
+    // level 1
     if (screen == 1){
       background(50);
       lives();
@@ -178,35 +176,41 @@ public class Sketch2 extends PApplet {
         screen = 3;
         backTop();
       }
-
-    } else if (screen == 2){
-       dblSize += 0.3;
+    } 
+    // to go to tutorial level 
+    else if (screen == 2){
+      dblSize += 0.3;
       tutorial(); 
-    } else if (screen == 3){
+    } 
+    else if (screen == 3){
       // cut screen to level 2 
       background (0);
       image(imgLvlTwo, 0, 0);
       nextLevel();
-    } else if (screen == 4){
-      // lvl 2 
-       fruitSpeed = 2;
-       if(dblSize == 0.3){
+    } 
+    else if (screen == 4){
+      // level 2 - increase speed and make fruit smaller
+      fruitSpeed = 2;
+      if(dblSize == 0.3){
         dblSize = 0.83;
         scaleImages();
-       }
-        background(50);
-        lives();
-        fruit();
-        // Display the score in the top left in white font
-        fill(255);
-        textSize(20);
-        text("Score: " + score, 20, 30);
-        if (score == 600){}
+      }
+      background(50);
+      lives();
+      fruit();
+      // Display the score in the top left in white font
+      fill(255);
+      textSize(20);
+      text("Score: " + score, 20, 30);
+      if (score == 600){}
         if (score == 900){
           screen = 5;
+          backTop();
         }
-    } else if (screen == 5){
-    // cut screen to go to level three 
+      }
+    } 
+    else if (screen == 5){
+      // cut screen to go to level three 
       background(0);
       image(imgLvlThree, 0, 0);
       nextLevel();
@@ -224,48 +228,55 @@ public class Sketch2 extends PApplet {
         fill(255);
         textSize(20);
         text("Score: " + score, 20, 30);
+        if (score == 1000){
         if (score == 1800){
           screen = 7;
         }
-    } else if (screen == 7) {
-    //cut screen to go to level 4 
+      } 
+    }
+    else if (screen == 7) {
+      //cut screen to go to level 4 
       background(0);
       image(imgLvlFour, 0, 0);
       nextLevel();
-    } else if (screen == 8){
-      // level 4 
+    } 
+    else if (screen == 8){
+      // level 4 - increase speed and make fruit smaller
       fruitSpeed = 4; 
       if(dblSize == 0.73){
         dblSize = 0.63;
         scaleImages();
-       }
+      }
       background(50);
-        fruit();
-        lives();
-        // Display the score in the top left in white font
-        fill(255);
-        textSize(20);
-        text("Score: " + score, 20, 30);
-        if (score >= 2100){
-          screen = 9;
-        }
-    } else if (screen == 9){
+      fruit();
+      lives();
+      // Display the score in the top left in white font
+      fill(255);
+      textSize(20);
+      text("Score: " + score, 20, 30);
+      if (score >= 2100){
+        screen = 9;
+      }
+    } 
+    else if (screen == 9){
+      //you win screen
       background(0);
       image(imgYouWin, 0, 0);
     }
     else {
+      //start page 
       image(imgbg1, 0, 0);
       image(imgStart, startX, startY);
       image(imgTutorial, tutorialX, tutorialY);
       startButton();
       tutorialButton();
     }
-
     mouseTrail();
   }
   
 
   public void scaleImages() {
+    //scale images 
     for (int i = 0; i < fruits.length; i++) {
       fruits[i].resize((int) (Double.valueOf(fruits[i].width) * dblSize), (int) (Double.valueOf(fruits[i].height) * dblSize));
       fruitsCut[i].resize((int) (Double.valueOf(fruitsCut[i].width) * dblSize), (int) (Double.valueOf(fruitsCut[i].height) * dblSize));
@@ -277,29 +288,29 @@ public class Sketch2 extends PApplet {
   public void fruit() {
     if (lives == 0){
       return; 
-    }else{
-    for (int i = 0; i < circleY.length; i++) {
-      image(fruits[i], circleX[i], circleY[i]);
-      circleY[i]+= fruitSpeed;
-      if (keyCode == DOWN) {
+    } else {
+      for (int i = 0; i < circleY.length; i++) {
+        image(fruits[i], circleX[i], circleY[i]);
+        circleY[i]+= fruitSpeed;
+        if (keyCode == DOWN) {
         circleY[i] += 3;
-      } else if (keyCode == UP) {
+        } else if (keyCode == UP) {
         circleY[i] -= 0.5;
-      }
-      if (circleY[i]+(fruits[i].height/2) > height) {
-        if(fruits[i] == fruitsStatic[i]){
-          lives -= 40;
-          System.out.println(lives);
         }
+        // determining weather or not you lose lives 
+        if (circleY[i]+(fruits[i].height/2) > height) {
+          if(fruits[i] == fruitsStatic[i]){
+            lives -= 40;
+           }
         fruits[i] = fruitsStatic[i];
         circleY[i] = 0;
-      }
+        }
+      } 
     }
-    }
-    //Code for next level
   }
 
   public void mouseDragged(){
+    // points when you cut fruit
     for (int i = 0; i < circleX.length; i++) {
       if (dist(mouseX, mouseY, circleX[i], circleY[i]) < (int) (fruitsStatic[i].width)) {
         if (fruits[i] != fruitsCut[i]) {
@@ -311,6 +322,7 @@ public class Sketch2 extends PApplet {
   }
 
   public void mouseTrail(){
+    // trail code 
     trail.add(new PVector(mouseX, mouseY));
     if(trail.size() > 10){
       trail.remove(0);
@@ -324,6 +336,7 @@ public class Sketch2 extends PApplet {
   }
 
   public void startButton(){
+    //start button
     image(imgbg1, 0, 0);
     image(imgStart, startX, startY);
     image(imgTutorial, tutorialX, tutorialY);
@@ -339,6 +352,7 @@ public class Sketch2 extends PApplet {
   }
 
   public void tutorialButton(){
+    //tutorial button
     image(imgbg1, 0, 0);
     image(imgStart, startX, startY);
     image(imgTutorial, tutorialX, tutorialY);
@@ -354,6 +368,7 @@ public class Sketch2 extends PApplet {
   }
 
   public void tutorial(){
+    //tutorial code 
     background(50);
     image(imgTextOne, -30, -100);
     int i = 10;
@@ -364,10 +379,12 @@ public class Sketch2 extends PApplet {
   }
 
   public void lives(){
+    //heath bar 
     if (screen >= 1) {
       fill(0, 255, 115);
       rect(0,0,20,lives);
       }
+      // you loose screen 
       if (lives <= 0){
         background(0);
         image(imgYouLose, 0, 0);
@@ -375,6 +392,7 @@ public class Sketch2 extends PApplet {
     }
   
   public void nextLevel(){
+    // bringing you to next level using button
     image(imgNextLvl, nextLvlX, nextLvlY); 
     if (mouseX > nextLvlX && mouseX < nextLvlX + nextLvlWidth && mouseY > nextLvlY && mouseY < nextLvlY + nextLvlHeight) {
       if (mousePressed) {
@@ -384,6 +402,7 @@ public class Sketch2 extends PApplet {
   }
 
   public void backTop(){
+    //brining fruit back to the top after each level
     for(int i = 0; i < fruits.length; i++){
       circleY[i] = random(200);
     }
