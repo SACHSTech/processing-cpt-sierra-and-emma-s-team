@@ -289,7 +289,7 @@ public class Sketch1 extends PApplet {
         if (score == 2500){
           screen = 9;
         }
-        // Once the game is compleate its the win page
+        // Once the game is complete its the win page
     } else if (screen == 9){
       background(0);
       image(imgYouWin, 0, 0);

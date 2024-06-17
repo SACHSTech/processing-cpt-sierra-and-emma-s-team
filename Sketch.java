@@ -271,7 +271,6 @@ public class Sketch extends PApplet {
       background(0);
       image(imgLvlFour, 0, 0);
       nextLevel();
-      // Level four game page
     } else if (screen == 8){
       // level 4 
       fruitSpeed = 4; 
@@ -289,10 +288,10 @@ public class Sketch extends PApplet {
         if (score == 2500){
           screen = 9;
         }
-        // Once the game is compleate its the win page
-    } else if (screen == 9){
-      background(0);
-      image(imgYouWin, 0, 0);
+        // Once the game is complete its the win page
+      } else if (screen == 9){
+        background(0);
+        image(imgYouWin, 0, 0);
       // The home page
     } else {
       image(imgbg1, 0, 0);
@@ -312,7 +311,6 @@ public class Sketch extends PApplet {
       fruits[i].resize((int) (Double.valueOf(fruits[i].width) * dblSize), (int) (Double.valueOf(fruits[i].height) * dblSize));
       fruitsCut[i].resize((int) (Double.valueOf(fruitsCut[i].width) * dblSize), (int) (Double.valueOf(fruitsCut[i].height) * dblSize));
       fruitsStatic[i].resize((int) (Double.valueOf(fruitsStatic[i].width) * dblSize), (int) (Double.valueOf(fruitsStatic[i].height) * dblSize));
-      fruits[i] = fruitsStatic[i];
     }
   }
 
