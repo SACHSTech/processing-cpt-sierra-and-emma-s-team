@@ -241,6 +241,8 @@ public class Sketch extends PApplet {
         text("Score: " + score, 20, 30);
         if (score == 900){
           screen = 5;
+          dblSize = 0.73;
+          scaleImages();
         }
         // Level three intro page 
     } else if (screen == 5){
@@ -251,10 +253,6 @@ public class Sketch extends PApplet {
     } else if (screen == 6){ 
       //level three game page
         fruitSpeed = 3;
-        if(dblSize == 0.83){
-          dblSize = 0.73;
-          scaleImages();
-         }
         background(50);
         lives();
         fruit();
@@ -264,6 +262,8 @@ public class Sketch extends PApplet {
         text("Score: " + score, 20, 30);
         if (score == 1800){
           screen = 7;
+          dblSize = 0.63;
+          scaleImages();
         }
         // Level 4 game intro page
     } else if (screen == 7) {
@@ -274,10 +274,6 @@ public class Sketch extends PApplet {
     } else if (screen == 8){
       // level 4 
       fruitSpeed = 4; 
-      if(dblSize == 0.73){
-        dblSize = 0.63;
-        scaleImages();
-       }
       background(50);
         fruit();
         lives();
